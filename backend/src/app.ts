@@ -3,9 +3,9 @@ import { fastify } from "fastify";
 import {
   serializerCompiler,
   validatorCompiler,
-  jsonSchemaTransform,
   type ZodTypeProvider,
 } from "fastify-type-provider-zod";
+import vacationRoutes from "./routes/vacation.routes";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -18,4 +18,4 @@ app.register(fastifyCors, {
   credentials: false,
 });
 
-// app.register(feriasRoutes , {prefix: '/ferias'})
+app.register(vacationRoutes, { prefix: "/vacation" });
