@@ -4,18 +4,25 @@ import {
 } from "@/schemas/vacation.schema";
 
 export function vacationCalc(input: VacationInputSchema): VacationOutputSchema {
-  const { salarioBruto, venderFerias, quantidadeDias, mediaValoresExtras } =
+  const { grossSalary, sellVacationDays, vacationDays, averageExtraEarnings } =
     input;
 
-  const salarioDia = (salarioBruto + (mediaValoresExtras ?? 0)) / 30;
-  const salarioFerias = salarioDia * quantidadeDias;
+  const dailySalary = (grossSalary + (averageExtraEarnings ?? 0)) / 30;
+  const vacationPay = dailySalary * vacationDays;
 
-  const tercoFerias = salarioFerias / 3;
+  const vacationBonus = vacationPay / 3;
 
-  const valorAbono = venderFerias ? salarioDia * 10 : 0;
-  const tercoAbono = venderFerias ? valorAbono / 3 : 0;
+  const vacationSellValue = sellVacationDays ? dailySalary * 10 : 0;
+  const vacationSellBonus = sellVacationDays ? vacationSellValue / 3 : 0;
 
-  const total = salarioFerias + tercoFerias + valorAbono + tercoAbono;
+  const totalVacationPay =
+    vacationPay + vacationBonus + vacationSellValue + vacationSellBonus;
 
-  return { salarioFerias, tercoFerias, valorAbono, tercoAbono, total };
+  return {
+    vacationPay,
+    vacationBonus,
+    vacationSellValue,
+    vacationSellBonus,
+    totalVacationPay,
+  };
 }

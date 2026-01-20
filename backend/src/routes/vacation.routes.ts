@@ -16,15 +16,10 @@ export default async function vacationRoutes(app: FastiftyTypedInstance) {
         },
       },
     },
-    async (request, reply) => {
+    async (request, _reply) => {
       const body = request.body;
-      console.log(body);
       const vacationResult = vacationCalc(body);
-      console.log(vacationResult);
-
-      // REGRAS DE NEGOCIO QUE VAO VIR DA SERVICE
-
-      return reply.status(200); // se não passar status ele ja manda 200
+      return vacationResult;
     }
   );
 }

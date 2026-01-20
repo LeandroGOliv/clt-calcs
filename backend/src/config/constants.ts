@@ -1,3 +1,3 @@
-export const SALARIO_MINIMO = 1621;
+export const MINIMUM_WAGE = 1621;
 
 // tabela inss e etc
