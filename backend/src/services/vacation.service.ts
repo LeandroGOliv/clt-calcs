@@ -2,6 +2,7 @@ import {
   VacationInputSchema,
   VacationOutputSchema,
 } from "@/schemas/vacation.schema";
+import { formatNumberDecimals } from "@/utils/formatNumberDecimals";
 
 export function vacationCalc(input: VacationInputSchema): VacationOutputSchema {
   const { grossSalary, sellVacationDays, vacationDays, averageExtraEarnings } =
@@ -19,10 +20,10 @@ export function vacationCalc(input: VacationInputSchema): VacationOutputSchema {
     vacationPay + vacationBonus + vacationSellValue + vacationSellBonus;
 
   return {
-    vacationPay,
-    vacationBonus,
-    vacationSellValue,
-    vacationSellBonus,
-    totalVacationPay,
+    vacationPay: formatNumberDecimals(vacationPay),
+    vacationBonus: formatNumberDecimals(vacationBonus),
+    vacationSellValue: formatNumberDecimals(vacationSellValue),
+    vacationSellBonus: formatNumberDecimals(vacationSellBonus),
+    totalVacationPay: formatNumberDecimals(totalVacationPay),
   };
 }
