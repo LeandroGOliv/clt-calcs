@@ -1,17 +1,21 @@
-import { VacationInputSchema } from "@/schemas/vacation.schema";
+import {
+  VacationInputSchema,
+  VacationOutputSchema,
+} from "@/schemas/vacation.schema";
 
-export function vacationCalc(input: VacationInputSchema) {
-  // PASSAR PRA INGLES
-  // VER SE PRECISO RETORNAR ALGO A MAIS PRA EXIBIR
-  // FALTA DESCONTOS
-  // PESQUISAR SE DEVO RETORNAR NUMBER MESMO PADRAOZAO OU JA FORMATADO COM R$ E ETC
-  const { salarioBruto, venderFerias } = input;
-  const feriasBase = salarioBruto + salarioBruto / 3;
-  if (venderFerias) {
-    const salarioDia = salarioBruto / 30;
-    const valorVendaFerias = salarioDia * 10;
-    return feriasBase + valorVendaFerias + valorVendaFerias / 3;
-  }
+export function vacationCalc(input: VacationInputSchema): VacationOutputSchema {
+  const { salarioBruto, venderFerias, quantidadeDias, mediaValoresExtras } =
+    input;
 
-  return feriasBase;
+  const salarioDia = (salarioBruto + (mediaValoresExtras ?? 0)) / 30;
+  const salarioFerias = salarioDia * quantidadeDias;
+
+  const tercoFerias = salarioFerias / 3;
+
+  const valorAbono = venderFerias ? salarioDia * 10 : 0;
+  const tercoAbono = venderFerias ? valorAbono / 3 : 0;
+
+  const total = salarioFerias + tercoFerias + valorAbono + tercoAbono;
+
+  return { salarioFerias, tercoFerias, valorAbono, tercoAbono, total };
 }

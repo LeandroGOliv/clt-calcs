@@ -2,6 +2,7 @@ import {
   vacationInputSchema,
   vacationOutputSchema,
 } from "@/schemas/vacation.schema";
+import { vacationCalc } from "@/services/vacation.service";
 import { FastiftyTypedInstance } from "@/types";
 
 export default async function vacationRoutes(app: FastiftyTypedInstance) {
@@ -16,10 +17,10 @@ export default async function vacationRoutes(app: FastiftyTypedInstance) {
       },
     },
     async (request, reply) => {
-      // nÃo precisa ser /vacation na rota porque la no app ja registrei com prefix declarado, dai ele ja faz isso
-      const { body } = request.body;
-
+      const body = request.body;
       console.log(body);
+      const vacationResult = vacationCalc(body);
+      console.log(vacationResult);
 
       // REGRAS DE NEGOCIO QUE VAO VIR DA SERVICE
 
