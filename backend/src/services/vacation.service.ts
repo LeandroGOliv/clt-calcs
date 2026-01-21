@@ -8,7 +8,8 @@ export function vacationCalc(input: VacationInputSchema): VacationOutputSchema {
   const { grossSalary, sellVacationDays, vacationDays, averageExtraEarnings } =
     input;
 
-  const dailySalary = (grossSalary + (averageExtraEarnings ?? 0)) / 30;
+  const dailySalary =
+    (grossSalary + (averageExtraEarnings ?? 0)) / vacationDays;
   const vacationPay = dailySalary * vacationDays;
 
   const vacationBonus = vacationPay / 3;
