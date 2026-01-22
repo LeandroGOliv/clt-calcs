@@ -26,5 +26,6 @@ export function vacationCalc(input: VacationInputSchema): VacationOutputSchema {
     vacationSellValue: formatNumberDecimals(vacationSellValue),
     vacationSellBonus: formatNumberDecimals(vacationSellBonus),
     totalVacationPay: formatNumberDecimals(totalVacationPay),
+    ...input,
   };
 }

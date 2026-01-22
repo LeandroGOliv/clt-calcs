@@ -13,22 +13,26 @@ export const overtimeHoursInput = z.object({
     .min(1)
     .max(
       MAX_OVERTIME_HOURS,
-      `O limite de horas mensais é de ${MAX_OVERTIME_HOURS} horas`
+      `O limit6
+      
+      e de horas mensais é de ${MAX_OVERTIME_HOURS} horas`
     )
     .positive(),
-  overtimeHours: {
-    daily: z.number(),
-    night: z.number(),
-    holiday: z.number(),
-  },
-});
-
-export const overtimeHoursOutput = overtimeHoursInput.extend({
-  overtimeHoursPay: {
+  overtimeHours: z.object({
     daily: z.number().nonnegative(),
     night: z.number().nonnegative(),
     holiday: z.number().nonnegative(),
-  },
+    holidayAndNight: z.number().nonnegative(),
+  }),
+});
+
+export const overtimeHoursOutput = overtimeHoursInput.extend({
+  overtimeHoursPay: z.object({
+    daily: z.number().nonnegative(),
+    night: z.number().nonnegative(),
+    holiday: z.number().nonnegative(),
+    holidayAndNight: z.number().nonnegative(),
+  }),
   totalOvertimeHoursPay: z.number().nonnegative().nonoptional(),
 });
 
