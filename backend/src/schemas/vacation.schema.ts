@@ -6,13 +6,15 @@ export const vacationInputSchema = z
     grossSalary: z
       .number()
       .min(MINIMUM_WAGE, `Salário deve ser no mínimo R$ ${MINIMUM_WAGE}`)
-      .positive("Salário deve ser positivo"),
-    sellVacationDays: z.boolean(),
+      .positive("Salário deve ser positivo")
+      .nonoptional(),
+    sellVacationDays: z.boolean().nonoptional(),
     vacationDays: z
       .number()
       .int("Quantidade de dias deve ser um número inteiro")
       .min(5, "Mínimo de 5 dias de férias")
-      .max(30, `Máximo de 30 dias de férias`),
+      .max(30, `Máximo de 30 dias de férias`)
+      .nonoptional(),
     averageExtraEarnings: z
       .number()
       .nonnegative("Valores extras não podem ser negativos")
@@ -28,11 +30,11 @@ export const vacationInputSchema = z
     {
       message: "Para vender férias, é necessário gozar no mínimo 20 dias",
       path: ["vacationDays"],
-    }
+    },
   );
 
 export const vacationOutputSchema = vacationInputSchema.extend({
-  vacationPay: z.number().nonnegative(),
+  vacationPay: z.number().nonnegative().nonoptional(),
   vacationBonus: z.number().nonnegative(),
   vacationSellValue: z.number().nonnegative(),
   vacationSellBonus: z.number().nonnegative(),
