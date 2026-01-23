@@ -19,7 +19,7 @@ export default async function vacationRoutes(app: FastiftyTypedInstance) {
     async (request, _reply) => {
       const body = request.body;
       const vacationResult = vacationCalc(body);
-      return vacationResult;
+      return { ...vacationResult, ...body };
     }
   );
 }

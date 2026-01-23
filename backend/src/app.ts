@@ -6,6 +6,7 @@ import {
   type ZodTypeProvider,
 } from "fastify-type-provider-zod";
 import vacationRoutes from "./routes/vacation.routes";
+import overtimeHoursRoutes from "./routes/overtime-hours.routes";
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -19,3 +20,4 @@ app.register(fastifyCors, {
 });
 
 app.register(vacationRoutes, { prefix: "/vacation" });
+app.register(overtimeHoursRoutes, { prefix: "/overtime-hours" });

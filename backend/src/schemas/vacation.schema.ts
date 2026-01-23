@@ -31,7 +31,7 @@ export const vacationInputSchema = z
     }
   );
 
-export const vacationOutputSchema = z.object({
+export const vacationOutputSchema = vacationInputSchema.extend({
   vacationPay: z.number().nonnegative(),
   vacationBonus: z.number().nonnegative(),
   vacationSellValue: z.number().nonnegative(),
