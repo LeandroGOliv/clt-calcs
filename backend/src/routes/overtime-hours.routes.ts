@@ -1,6 +1,6 @@
 import {
-  overtimeHoursInput,
-  overtimeHoursOutput,
+  overtimeHoursInputSchema,
+  overtimeHoursOutputSchema,
 } from "@/schemas/overtime-hours.schema";
 import { overtimeHoursCalc } from "@/services/overtime-hours.service";
 import { FastiftyTypedInstance } from "@/types";
@@ -10,8 +10,8 @@ export default async function overtimeHoursRoutes(app: FastiftyTypedInstance) {
     "/",
     {
       schema: {
-        body: overtimeHoursInput,
-        response: { 200: overtimeHoursOutput },
+        body: overtimeHoursInputSchema,
+        response: { 200: overtimeHoursOutputSchema },
       },
     },
 
@@ -19,6 +19,6 @@ export default async function overtimeHoursRoutes(app: FastiftyTypedInstance) {
       const body = request.body;
       const overtimeHoursResult = overtimeHoursCalc(body);
       return overtimeHoursResult;
-    }
+    },
   );
 }
