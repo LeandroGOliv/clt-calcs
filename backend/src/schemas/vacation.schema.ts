@@ -34,11 +34,14 @@ export const vacationInputSchema = z
   );
 
 export const vacationOutputSchema = vacationInputSchema.extend({
-  vacationPay: z.number().nonnegative().nonoptional(),
+  vacationPay: z.number().positive(),
   vacationBonus: z.number().nonnegative(),
   vacationSellValue: z.number().nonnegative(),
   vacationSellBonus: z.number().nonnegative(),
-  totalVacationPay: z.number().nonnegative().nonoptional(),
+  totalVacationGrossPay: z.number().positive(),
+  inssDeduction: z.number(),
+  irrfDeduction: z.number(),
+  totalVacationNetPay: z.number(),
 });
 
 export type VacationInputSchema = z.infer<typeof vacationInputSchema>;

@@ -15,7 +15,7 @@ export const overtimeHoursInputSchema = z.object({
       MAX_OVERTIME_HOURS,
       `O limite
       
-      e de horas mensais é de ${MAX_OVERTIME_HOURS} horas`
+      e de horas mensais é de ${MAX_OVERTIME_HOURS} horas`,
     )
     .positive()
     .nonoptional(),
@@ -34,7 +34,10 @@ export const overtimeHoursOutputSchema = overtimeHoursInputSchema.extend({
     holiday: z.number().nonnegative(),
     holidayAndNight: z.number().nonnegative(),
   }),
-  totalOvertimeHoursPay: z.number().nonnegative().nonoptional(),
+  totalOvertimeHoursGrossPay: z.number().positive(),
+  inssDeduction: z.number(),
+  irrfDeduction: z.number(),
+  totalOvertimeHoursNetPay: z.number(),
 });
 
 export type OvertimeHoursInput = z.infer<typeof overtimeHoursInputSchema>;

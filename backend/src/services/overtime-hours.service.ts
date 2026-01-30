@@ -1,6 +1,12 @@
-import { OvertimeHoursInput } from "@/schemas/overtime-hours.schema";
+import {
+  OvertimeHoursInput,
+  overtimeHoursOutput,
+} from "@/schemas/overtime-hours.schema";
+import { applyCLTDeductions } from "@/utils/deductions";
 
-export function overtimeHoursCalc(input: OvertimeHoursInput) {
+export function overtimeHoursCalc(
+  input: OvertimeHoursInput,
+): overtimeHoursOutput {
   const { grossSalary, monthlyWorkHours, overtimeHours } = input;
 
   const dailySalary = grossSalary / monthlyWorkHours;
@@ -12,15 +18,20 @@ export function overtimeHoursCalc(input: OvertimeHoursInput) {
     holidayAndNight: dailySalary * overtimeHours.holidayAndNight * 2.2,
   };
 
-  const totalOvertimeHoursPay =
+  const totalOvertimeHoursGrossPay =
     overtimeHoursPay.daily +
     overtimeHoursPay.night +
     overtimeHoursPay.holiday +
     overtimeHoursPay.holidayAndNight;
 
+  const { inss, irrf, net } = applyCLTDeductions(totalOvertimeHoursGrossPay);
+
   return {
     overtimeHoursPay,
-    totalOvertimeHoursPay,
+    totalOvertimeHoursGrossPay,
+    inssDeduction: inss,
+    irrfDeduction: irrf,
+    totalOvertimeHoursNetPay: net,
     ...input,
   };
 }

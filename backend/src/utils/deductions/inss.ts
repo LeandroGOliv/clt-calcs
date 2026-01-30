@@ -24,7 +24,7 @@ export default function calcINSS(gross: number) {
   for (const bracket of INSS_TABLE) {
     const taxable = Math.min(bracket.limit - previousLimit, remaining);
 
-    if (remaining === 0) return;
+    if (remaining === 0) return 0;
 
     remaining -= taxable;
     previousLimit = bracket.limit;
