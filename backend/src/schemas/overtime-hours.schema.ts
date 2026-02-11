@@ -13,9 +13,8 @@ export const overtimeHoursInputSchema = z.object({
     .min(1)
     .max(
       MAX_OVERTIME_HOURS,
-      `O limit6
-      
-      e de horas mensais é de ${MAX_OVERTIME_HOURS} horas`,
+      `O limite de horas mensais é de ${MAX_OVERTIME_HOURS} horas
+      `
     )
     .positive()
     .nonoptional(),
