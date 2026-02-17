@@ -13,6 +13,7 @@
     "types": ["node", "jest"],
     "module": "nodenext",
     "target": "es2024",
+    "isolatedModules": true,
 
     "strict": true,
     "esModuleInterop": true,

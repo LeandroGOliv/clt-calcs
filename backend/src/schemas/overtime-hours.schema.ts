@@ -14,7 +14,7 @@ export const overtimeHoursInputSchema = z.object({
     .max(
       MAX_OVERTIME_HOURS,
       `O limite de horas mensais é de ${MAX_OVERTIME_HOURS} horas
-      `
+      `,
     )
     .positive()
     .nonoptional(),
@@ -37,4 +37,4 @@ export const overtimeHoursOutputSchema = overtimeHoursInputSchema.extend({
 });
 
 export type OvertimeHoursInput = z.infer<typeof overtimeHoursInputSchema>;
-export type overtimeHoursOutput = z.infer<typeof overtimeHoursOutputSchema>;
+export type OvertimeHoursOutput = z.infer<typeof overtimeHoursOutputSchema>;

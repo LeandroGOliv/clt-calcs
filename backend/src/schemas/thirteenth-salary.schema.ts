@@ -7,7 +7,7 @@ export const thirteenthSalaryInputSchema = z.object({
     .min(MINIMUM_WAGE, `Salário deve ser no mínimo R$ ${MINIMUM_WAGE}`)
     .positive()
     .nonoptional(),
-  monthsWorked: z.number().min(1).positive().nonoptional(),
+  monthsWorked: z.number().min(1).max(12).positive().nonoptional(),
   numberOfInstallments: z.number().min(1).max(2).positive().nonoptional(),
 });
 
