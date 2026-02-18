@@ -33,7 +33,10 @@ export const overtimeHoursOutputSchema = overtimeHoursInputSchema.extend({
     holiday: z.number().nonnegative(),
     holidayAndNight: z.number().nonnegative(),
   }),
-  totalOvertimeHoursPay: z.number().nonnegative().nonoptional(),
+  totalOvertimeHoursGrossPay: z.number().positive(),
+  inssDeduction: z.number(),
+  irrfDeduction: z.number(),
+  totalOvertimeHoursNetPay: z.number(),
 });
 
 export type OvertimeHoursInput = z.infer<typeof overtimeHoursInputSchema>;
