@@ -29,7 +29,8 @@ describe("POST /overtime-hours", () => {
     const body = response.json<OvertimeHoursOutput>();
     expect(response.statusCode).toBe(200);
     expect(body.overtimeHoursPay.holiday).toBeGreaterThan(0);
-    expect(body.totalOvertimeHoursPay).toBeGreaterThan(0);
+    expect(body.totalOvertimeHoursGrossPay).toBeGreaterThan(0);
+    expect(body.totalOvertimeHoursNetPay).toBeGreaterThan(0);
   });
 
   it("should return 400 for invalid input", async () => {

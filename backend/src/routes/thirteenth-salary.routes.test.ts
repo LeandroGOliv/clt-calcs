@@ -22,9 +22,15 @@ describe("POST /thirteenth-salary", () => {
     });
     const body = response.json<ThirteenthSalaryOutputSchema>();
     expect(response.statusCode).toBe(200);
-    expect(body.firstInstallment).toBeGreaterThan(0);
-    expect(body.secondInstallment).toBeGreaterThan(0);
-    expect(body.thirteenthSalaryTotal).toBeGreaterThan(0);
+    expect(body.firstInstallmentGross).toBeGreaterThan(0);
+    expect(body.firstInstallmentNet).toBeGreaterThan(0);
+    expect(body.secondInstallmentGross).toBeGreaterThan(0);
+    expect(body.secondInstallmentNet).toBeGreaterThan(0);
+    expect(body.thirteenthSalaryGrossTotal).toBeGreaterThan(0);
+    expect(body.secondInstallmentINSSDeduction).toBeDefined();
+    expect(body.secondInstallmentIRRFDeduction).toBeDefined();
+    expect(body.firstInstallmentINSSDeduction).toBeDefined();
+    expect(body.firstInstallmentIRRFDeduction).toBeDefined();
   });
 
   it("should return 400 for invalid input", async () => {

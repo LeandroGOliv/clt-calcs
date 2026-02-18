@@ -22,6 +22,7 @@ describe("POST to /vacation", () => {
     expect(body.vacationPay).toBeGreaterThan(0);
     expect(body.vacationSellValue).toBeGreaterThan(0);
     expect(body.vacationSellBonus).toBeGreaterThan(0);
-    expect(body.totalVacationPay).toBeGreaterThan(0);
+    expect(body.totalVacationGrossPay).toBeGreaterThan(0);
+    expect(body.totalVacationNetPay).toBeGreaterThan(0);
   });
 });
