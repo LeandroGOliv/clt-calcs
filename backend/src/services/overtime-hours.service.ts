@@ -1,12 +1,12 @@
 import {
   OvertimeHoursInput,
-  overtimeHoursOutput,
+  OvertimeHoursOutput,
 } from "@/schemas/overtime-hours.schema";
 import { applyCLTDeductions } from "@/utils/deductions";
 
 export function overtimeHoursCalc(
-  input: OvertimeHoursInput,
-): overtimeHoursOutput {
+  input: OvertimeHoursInput
+): OvertimeHoursOutput {
   const { grossSalary, monthlyWorkHours, overtimeHours } = input;
 
   const dailySalary = grossSalary / monthlyWorkHours;
