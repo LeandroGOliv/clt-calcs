@@ -9,8 +9,26 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as HorasExtrasRouteImport } from './routes/horas-extras'
+import { Route as FeriasRouteImport } from './routes/ferias'
+import { Route as DecimoTerceiroRouteImport } from './routes/decimo-terceiro'
 import { Route as IndexRouteImport } from './routes/index'
 
+const HorasExtrasRoute = HorasExtrasRouteImport.update({
+  id: '/horas-extras',
+  path: '/horas-extras',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FeriasRoute = FeriasRouteImport.update({
+  id: '/ferias',
+  path: '/ferias',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DecimoTerceiroRoute = DecimoTerceiroRouteImport.update({
+  id: '/decimo-terceiro',
+  path: '/decimo-terceiro',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +37,61 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/decimo-terceiro': typeof DecimoTerceiroRoute
+  '/ferias': typeof FeriasRoute
+  '/horas-extras': typeof HorasExtrasRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/decimo-terceiro': typeof DecimoTerceiroRoute
+  '/ferias': typeof FeriasRoute
+  '/horas-extras': typeof HorasExtrasRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/decimo-terceiro': typeof DecimoTerceiroRoute
+  '/ferias': typeof FeriasRoute
+  '/horas-extras': typeof HorasExtrasRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/decimo-terceiro' | '/ferias' | '/horas-extras'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/decimo-terceiro' | '/ferias' | '/horas-extras'
+  id: '__root__' | '/' | '/decimo-terceiro' | '/ferias' | '/horas-extras'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DecimoTerceiroRoute: typeof DecimoTerceiroRoute
+  FeriasRoute: typeof FeriasRoute
+  HorasExtrasRoute: typeof HorasExtrasRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/horas-extras': {
+      id: '/horas-extras'
+      path: '/horas-extras'
+      fullPath: '/horas-extras'
+      preLoaderRoute: typeof HorasExtrasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ferias': {
+      id: '/ferias'
+      path: '/ferias'
+      fullPath: '/ferias'
+      preLoaderRoute: typeof FeriasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/decimo-terceiro': {
+      id: '/decimo-terceiro'
+      path: '/decimo-terceiro'
+      fullPath: '/decimo-terceiro'
+      preLoaderRoute: typeof DecimoTerceiroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +104,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DecimoTerceiroRoute: DecimoTerceiroRoute,
+  FeriasRoute: FeriasRoute,
+  HorasExtrasRoute: HorasExtrasRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
