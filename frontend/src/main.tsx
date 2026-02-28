@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
-import { Toaster } from "sonner";
+import { Provider } from "./components/ui/provider.tsx";
 
 import { routeTree } from "./routeTree.gen";
 
@@ -32,12 +32,13 @@ if (rootElement && !rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <StrictMode>
-      <ZodProvider>
-        <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
-          <Toaster position="top-right" />
-        </QueryClientProvider>
-      </ZodProvider>
+      <Provider>
+        <ZodProvider>
+          <QueryClientProvider client={queryClient}>
+            <RouterProvider router={router} />
+          </QueryClientProvider>
+        </ZodProvider>
+      </Provider>
     </StrictMode>,
   );
 }
