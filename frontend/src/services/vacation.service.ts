@@ -4,22 +4,21 @@ import type {
   VacationSchema,
 } from "../utils/schemas/vacation";
 
-export const createPost = async (
-  data: VacationSchema,
-): Promise<VacationResponseSchema> => {
-  const response = await fetch(`${API_URL}/vacation`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
+export const vacationService = {
+  create: async (data: VacationSchema): Promise<VacationResponseSchema> => {
+    const response = await fetch(`${API_URL}/vacation`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || "Erro ao calcular férias.");
-  }
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || "Erro ao calcular férias.");
+    }
 
-  const result: VacationResponseSchema = await response.json();
-  return result;
+    return await response.json();
+  },
 };
