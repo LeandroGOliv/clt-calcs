@@ -9,6 +9,9 @@ import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import services from "@/services";
 import { toaster } from "../ui/toaster";
+import UiNumberInput from "../ui/Form/UiNumberInput";
+import UiCurrencyInput from "../ui/Form/UiCurrencyInput";
+import { Button } from "@chakra-ui/react";
 
 export default function FormThirteenthSalary() {
   const [isPending, setIsPending] = useState(false);
@@ -55,9 +58,34 @@ export default function FormThirteenthSalary() {
   return (
     <>
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onFormSubmit)}></form>
+        <form onSubmit={methods.handleSubmit(onFormSubmit)}>
+          <UiCurrencyInput
+            name="grossSalary"
+            label="Salário bruto:"
+            id="grossSalary"
+          />
+          <UiNumberInput
+            name="monthsWorked"
+            label="Meses trabalhados:"
+            id="monthsWorked"
+            min={1}
+            max={12}
+            step={1}
+          />
+          <UiNumberInput
+            name="numberOfInstallments"
+            label="Número de parcelas"
+            id="numberOfInstallments"
+            min={1}
+            max={2}
+            step={1}
+          />
+          <Button loading={isPending} type="submit" variant="solid">
+            Calcular
+          </Button>
+        </form>
       </FormProvider>
-      {calcResult}
+      <pre>{JSON.stringify(calcResult, null, 2)}</pre>
     </>
   );
 }

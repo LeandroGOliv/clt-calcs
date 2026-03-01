@@ -3,7 +3,10 @@
 :root {
   --color-background: #2c2c2c;
   --color-primary: #b3b3b3;
+  --color-secondary: #2f009c;
   --color-text: #e8e8e8;
+  --color-border: #b3b3b3;
+  --color-border-focus: #2f009c;
 }
 
 body {
