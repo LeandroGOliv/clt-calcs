@@ -3,6 +3,7 @@ import {
   ThirteenthSalaryOutputSchema,
 } from "@/schemas/thirteenth-salary.schema";
 import { applyCLTDeductions } from "@/utils/deductions";
+import { formatNumberDecimals } from "@/utils/formatNumberDecimals";
 
 export function thirteenthSalaryCalc(
   input: ThirteenthSalaryInputSchema,
@@ -45,15 +46,25 @@ export function thirteenthSalaryCalc(
   }
 
   return {
-    thirteenthSalaryGrossTotal,
-    firstInstallmentGross,
-    firstInstallmentNet,
-    firstInstallmentINSSDeduction,
-    firstInstallmentIRRFDeduction,
-    secondInstallmentGross,
-    secondInstallmentNet,
-    secondInstallmentINSSDeduction,
-    secondInstallmentIRRFDeduction,
+    thirteenthSalaryGrossTotal: formatNumberDecimals(
+      thirteenthSalaryGrossTotal,
+    ),
+    firstInstallmentGross: formatNumberDecimals(firstInstallmentGross),
+    firstInstallmentNet: formatNumberDecimals(firstInstallmentNet),
+    firstInstallmentINSSDeduction: formatNumberDecimals(
+      firstInstallmentINSSDeduction,
+    ),
+    firstInstallmentIRRFDeduction: formatNumberDecimals(
+      firstInstallmentIRRFDeduction,
+    ),
+    secondInstallmentGross: formatNumberDecimals(secondInstallmentGross),
+    secondInstallmentNet: formatNumberDecimals(secondInstallmentNet),
+    secondInstallmentINSSDeduction: formatNumberDecimals(
+      secondInstallmentINSSDeduction,
+    ),
+    secondInstallmentIRRFDeduction: formatNumberDecimals(
+      secondInstallmentIRRFDeduction,
+    ),
     ...input,
   };
 }
