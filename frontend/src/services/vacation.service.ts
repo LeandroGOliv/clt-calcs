@@ -5,7 +5,7 @@ import type {
 } from "../utils/schemas/vacation";
 
 export const vacationService = {
-  create: async (data: VacationSchema): Promise<VacationResponseSchema> => {
+  calculate: async (data: VacationSchema): Promise<VacationResponseSchema> => {
     const response = await fetch(`${API_URL}/vacation`, {
       method: "POST",
       headers: {

@@ -1,9 +1,14 @@
-import { createFileRoute } from '@tanstack/react-router'
+import FormVacation from "@/components/Vacation/FormVacation";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/ferias')({
+export const Route = createFileRoute("/ferias")({
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
-  return <div>Hello "/ferias"!</div>
+  return (
+    <>
+      <FormVacation />
+    </>
+  );
 }

@@ -9,6 +9,7 @@ import "./styles.css";
 import { ZodProvider } from "./integrations/provider.ts";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "./components/ui/toaster.tsx";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,7 @@ if (rootElement && !rootElement.innerHTML) {
       <Provider>
         <ZodProvider>
           <QueryClientProvider client={queryClient}>
+            <Toaster />
             <RouterProvider router={router} />
           </QueryClientProvider>
         </ZodProvider>

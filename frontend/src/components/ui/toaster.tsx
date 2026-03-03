@@ -11,7 +11,7 @@ import {
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const toaster = createToaster({
-  placement: "top-end",
+  placement: "bottom",
   pauseOnPageIdle: true,
 });
 

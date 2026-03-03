@@ -5,7 +5,7 @@ import type {
 } from "../utils/schemas/overtime-hours";
 
 export const overtimeHoursService = {
-  create: async (
+  calculate: async (
     data: OvertimeHoursSchema,
   ): Promise<OvertimeHoursResponseSchema> => {
     const response = await fetch(`${API_URL}/overtime-hours`, {
