@@ -83,8 +83,6 @@ export default function FormVacation() {
             label="Vender férias (abono pecuniário)"
             id="sellVacationDays"
           />
-
-          {/* tambem exibir o número de dias vendidos que é automatico 1/3 */}
           <Button loading={isPending} type="submit" variant="solid">
             Calcular
           </Button>
