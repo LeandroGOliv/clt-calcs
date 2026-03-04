@@ -1,3 +1,4 @@
+import FormOvertimeHours from "@/components/OvertimeHours/FormOvertimeHours";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/horas-extras")({
@@ -5,5 +6,9 @@ export const Route = createFileRoute("/horas-extras")({
 });
 
 function RouteComponent() {
-  return <div>Hello "/horas-extras"!</div>;
+  return (
+    <>
+      <FormOvertimeHours />
+    </>
+  );
 }
