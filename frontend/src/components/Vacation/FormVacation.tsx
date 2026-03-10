@@ -1,9 +1,4 @@
-import { useState } from "react";
-import {
-  vacationSchema,
-  type VacationResponseSchema,
-  type VacationSchema,
-} from "@/utils/schemas/vacation";
+import { vacationSchema, type VacationSchema } from "@/utils/schemas/vacation";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -15,9 +10,6 @@ import UiNumberInput from "../ui/Form/UiNumberInput";
 import UICheckbox from "../ui/Form/UICheckbox";
 
 export default function FormVacation() {
-  const [isPending, setIsPending] = useState(false);
-  const [calcResult, setCalcResult] = useState<VacationResponseSchema>();
-
   const methods = useForm({
     resolver: zodResolver(vacationSchema),
     defaultValues: {
@@ -28,23 +20,22 @@ export default function FormVacation() {
     },
   });
 
-  const { mutate } = useMutation({
+  const {
+    mutate,
+    data: calcResult,
+    isPending,
+  } = useMutation({
     mutationFn: async (form: VacationSchema) => {
-      setIsPending(true);
       return services.vacation.calculate(form);
     },
-    onSuccess: async (response) => {
+    onSuccess: () => {
       toaster.create({
         description: "Férias calculadas com sucesso!",
         duration: 4000,
         type: "success",
       });
-
-      setCalcResult(response);
-      setIsPending(false);
     },
     onError: (e: Error) => {
-      setIsPending(false);
       toaster.create({
         description: e.message,
         type: "error",
