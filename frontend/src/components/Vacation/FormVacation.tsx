@@ -48,38 +48,53 @@ export default function FormVacation() {
   }
 
   return (
-    <>
+    <div>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onFormSubmit)}>
-          <UiCurrencyInput
-            name="grossSalary"
-            label="Salário bruto:"
-            id="grossSalary"
-          />
-          <UiNumberInput
-            name="vacationDays"
-            label="Dias de férias:"
-            id="vacationDays"
-            min={5}
-            max={30}
-            step={1}
-          />
-          <UiCurrencyInput
-            name="averageExtraEarnings"
-            label="Valor médio mensal de horas extras ou comissões:"
-            id="averageExtraEarnings"
-          />
-          <UICheckbox
-            name="sellVacationDays"
-            label="Vender férias (abono pecuniário)"
-            id="sellVacationDays"
-          />
-          <Button loading={isPending} type="submit" variant="solid">
+          <div className="grid grid-cols-12 gap-3 mb-3">
+            <div className="max-sm:col-span-12  col-span-7">
+              <UiCurrencyInput
+                name="grossSalary"
+                label="Salário bruto:"
+                id="grossSalary"
+              />
+            </div>
+            <div className="max-sm:col-span-12 col-span-5">
+              <UiNumberInput
+                name="vacationDays"
+                label="Dias de férias:"
+                id="vacationDays"
+                min={5}
+                max={30}
+                step={1}
+              />
+            </div>
+            <div className="max-sm:col-span-12 col-span-7">
+              <UiCurrencyInput
+                name="averageExtraEarnings"
+                label="Valor médio mensal de horas extras ou comissões:"
+                id="averageExtraEarnings"
+              />
+            </div>
+            <div className="col-span-12">
+              <UICheckbox
+                name="sellVacationDays"
+                label="Vender férias (abono pecuniário)"
+                id="sellVacationDays"
+              />
+            </div>
+          </div>
+          <Button
+            loading={isPending}
+            type="submit"
+            variant="solid"
+            className="w-full"
+          >
             Calcular
           </Button>
         </form>
       </FormProvider>
       <pre>{JSON.stringify(calcResult, null, 2)}</pre>
-    </>
+    </div>
   );
 }

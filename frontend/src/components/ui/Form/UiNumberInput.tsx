@@ -28,6 +28,7 @@ export default function UiNumberInput({
       render={({ field, fieldState }) => (
         <UiFormField label={label} id={id} error={fieldState.error?.message}>
           <NumberInput.Root
+            className="w-full"
             min={min}
             max={max}
             step={step}

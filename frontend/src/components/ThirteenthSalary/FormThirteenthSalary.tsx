@@ -49,36 +49,49 @@ export default function FormThirteenthSalary() {
   }
 
   return (
-    <>
+    <div>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onFormSubmit)}>
-          <UiCurrencyInput
-            name="grossSalary"
-            label="Salário bruto:"
-            id="grossSalary"
-          />
-          <UiNumberInput
-            name="monthsWorked"
-            label="Meses trabalhados:"
-            id="monthsWorked"
-            min={1}
-            max={12}
-            step={1}
-          />
-          <UiNumberInput
-            name="numberOfInstallments"
-            label="Número de parcelas"
-            id="numberOfInstallments"
-            min={1}
-            max={2}
-            step={1}
-          />
-          <Button loading={isPending} type="submit" variant="solid">
+          <div className="grid grid-cols-12 gap-3 mb-3">
+            <div className="col-span-12">
+              <UiCurrencyInput
+                name="grossSalary"
+                label="Salário bruto:"
+                id="grossSalary"
+              />
+            </div>
+            <div className="max-sm:col-span-12 col-span-6">
+              <UiNumberInput
+                name="monthsWorked"
+                label="Meses trabalhados:"
+                id="monthsWorked"
+                min={1}
+                max={12}
+                step={1}
+              />
+            </div>
+            <div className="max-sm:col-span-12 col-span-6">
+              <UiNumberInput
+                name="numberOfInstallments"
+                label="Número de parcelas"
+                id="numberOfInstallments"
+                min={1}
+                max={2}
+                step={1}
+              />
+            </div>
+          </div>
+          <Button
+            loading={isPending}
+            type="submit"
+            variant="solid"
+            className="w-full"
+          >
             Calcular
           </Button>
         </form>
       </FormProvider>
       <pre>{JSON.stringify(calcResult, null, 2)}</pre>
-    </>
+    </div>
   );
 }

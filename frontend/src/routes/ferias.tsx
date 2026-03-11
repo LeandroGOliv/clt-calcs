@@ -7,8 +7,11 @@ export const Route = createFileRoute("/ferias")({
 
 function RouteComponent() {
   return (
-    <>
+    <div className="flex flex-col min-h-screen justify-center items-center">
+      <h1 className="max-sm:text-xl text-3xl font-bold mb-6">
+        Calculadora de férias
+      </h1>
       <FormVacation />
-    </>
+    </div>
   );
 }
