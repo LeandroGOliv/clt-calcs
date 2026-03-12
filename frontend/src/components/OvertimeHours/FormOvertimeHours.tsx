@@ -54,45 +54,64 @@ export default function FormOvertimeHours() {
   }
 
   return (
-    <>
+    <div className="w-3xl">
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onFormSubmit)}>
-          <UiCurrencyInput
-            name="grossSalary"
-            label="Salário bruto:"
-            id="grossSalary"
-          />
-          <UiNumberInput
-            name="monthlyWorkHours"
-            label="Carga horária mensal:"
-            id="monthlyWorkHours"
-          />
-          <UiNumberInput
-            name="overtimeHours.daily"
-            label="Horas extras normais:"
-            id="daily"
-          />
-          <UiNumberInput
-            name="overtimeHours.holiday"
-            label="Horas extras domingos e feriados:"
-            id="holiday"
-          />
-          <UiNumberInput
-            name="overtimeHours.night"
-            label="Horas extras noturnas:"
-            id="night"
-          />
-          <UiNumberInput
-            name="overtimeHours.holidayAndNight"
-            label="Horas extras noturnas em domingos e feriados:"
-            id="holidayAndNight"
-          />
-          <Button loading={isPending} type="submit" variant="solid">
+          <div className="grid grid-cols-12 gap-3 mb-3">
+            <div className="max-sm:col-span-12 col-span-4">
+              <UiCurrencyInput
+                name="grossSalary"
+                label="Salário bruto:"
+                id="grossSalary"
+              />
+            </div>
+            <div className="max-sm:col-span-12 col-span-4">
+              <UiNumberInput
+                name="monthlyWorkHours"
+                label="Carga horária mensal:"
+                id="monthlyWorkHours"
+              />
+            </div>
+            <div className="max-sm:col-span-12 col-span-4">
+              <UiNumberInput
+                name="overtimeHours.daily"
+                label="Horas extras normais:"
+                id="daily"
+              />
+            </div>
+            <div className="max-sm:col-span-12 col-span-5">
+              <UiNumberInput
+                name="overtimeHours.holiday"
+                label="Horas extras domingos e feriados:"
+                id="holiday"
+              />
+            </div>
+            <div className="max-sm:col-span-12 col-span-5">
+              <UiNumberInput
+                name="overtimeHours.night"
+                label="Horas extras noturnas:"
+                id="night"
+              />
+            </div>
+            <div className="max-sm:col-span-12 col-span-5">
+              <UiNumberInput
+                name="overtimeHours.holidayAndNight"
+                label="Horas extras noturnas em domingos e feriados:"
+                id="holidayAndNight"
+              />
+            </div>
+          </div>
+          <Button
+            loading={isPending}
+            type="submit"
+            variant="solid"
+            className="w-full"
+          >
             Calcular
           </Button>
         </form>
       </FormProvider>
       <pre>{JSON.stringify(calcResult, null, 2)}</pre>
-    </>
+    </div>
   );
 }

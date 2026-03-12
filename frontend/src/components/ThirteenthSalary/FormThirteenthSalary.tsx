@@ -49,7 +49,7 @@ export default function FormThirteenthSalary() {
   }
 
   return (
-    <div>
+    <div className="w-3xl">
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onFormSubmit)}>
           <div className="grid grid-cols-12 gap-3 mb-3">
