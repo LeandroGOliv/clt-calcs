@@ -48,7 +48,7 @@ export default function FormVacation() {
   }
 
   return (
-    <div className="w-3xl">
+    <div className="max-w-3xl w-full p-2">
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onFormSubmit)}>
           <div className="grid grid-cols-12 gap-3 mb-3">

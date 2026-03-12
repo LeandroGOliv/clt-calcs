@@ -19,6 +19,12 @@ const buttonRecipe = defineRecipe({
           bg: "var(--color-secondary)/80",
         },
       },
+      outline: {
+        borderColor: "var(--color-secondary)",
+        _hover: {
+          bg: "var(--color-secondary)",
+        },
+      },
     },
   },
 });

@@ -1,5 +1,6 @@
 import FormThirteenthSalary from "@/components/ThirteenthSalary/FormThirteenthSalary";
 import { createFileRoute } from "@tanstack/react-router";
+import UiBackButton from "@/components/ui/UiBackButton";
 
 export const Route = createFileRoute("/decimo-terceiro")({
   component: RouteComponent,
@@ -7,11 +8,17 @@ export const Route = createFileRoute("/decimo-terceiro")({
 
 function RouteComponent() {
   return (
-    <div className="flex flex-col min-h-screen justify-center items-center">
-      <h1 className="max-sm:text-xl text-3xl font-bold mb-6">
-        Calculadora de décimo terceiro salário
-      </h1>
-      <FormThirteenthSalary />
+    <div className="min-h-screen flex flex-col">
+      <div className="items-top py-5 px-2 lg:p-10">
+        <UiBackButton />
+      </div>
+
+      <div className="lg:mt-24 flex flex-col justify-center items-center">
+        <h1 className="max-sm:text-xl text-3xl font-bold mb-2 lg:mb-6">
+          Calculadora de décimo terceiro salário
+        </h1>
+        <FormThirteenthSalary />
+      </div>
     </div>
   );
 }
