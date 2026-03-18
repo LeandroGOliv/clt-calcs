@@ -1,4 +1,8 @@
-import { vacationSchema, type VacationSchema } from "@/utils/schemas/vacation";
+import {
+  vacationSchema,
+  type VacationResponseSchema,
+  type VacationSchema,
+} from "@/utils/schemas/vacation";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
@@ -9,7 +13,11 @@ import UiCurrencyInput from "../ui/Form/UiCurrencyInput";
 import UiNumberInput from "../ui/Form/UiNumberInput";
 import UICheckbox from "../ui/Form/UICheckbox";
 
-export default function FormVacation() {
+type Props = {
+  onSuccess: (data: VacationResponseSchema) => void;
+};
+
+export default function FormVacation({ onSuccess }: Props) {
   const methods = useForm({
     resolver: zodResolver(vacationSchema),
     defaultValues: {
@@ -20,15 +28,12 @@ export default function FormVacation() {
     },
   });
 
-  const {
-    mutate,
-    data: calcResult,
-    isPending,
-  } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: async (form: VacationSchema) => {
       return services.vacation.calculate(form);
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      onSuccess(data);
       toaster.create({
         description: "Férias calculadas com sucesso!",
         duration: 4000,
@@ -84,17 +89,25 @@ export default function FormVacation() {
               />
             </div>
           </div>
-          <Button
-            loading={isPending}
-            type="submit"
-            variant="solid"
-            className="w-full"
-          >
-            Calcular
-          </Button>
+          <div className="flex max-md:flex-col lg:justify-between w-full gap-2">
+            <Button
+              variant="outline"
+              className="lg:flex-1"
+              onClick={() => methods.reset()}
+            >
+              Limpar formulário
+            </Button>
+            <Button
+              loading={isPending}
+              type="submit"
+              variant="solid"
+              className="lg:flex-1"
+            >
+              Calcular
+            </Button>
+          </div>
         </form>
       </FormProvider>
-      <pre>{JSON.stringify(calcResult, null, 2)}</pre>
     </div>
   );
 }

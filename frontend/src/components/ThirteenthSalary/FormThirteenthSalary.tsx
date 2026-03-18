@@ -81,14 +81,23 @@ export default function FormThirteenthSalary() {
               />
             </div>
           </div>
-          <Button
-            loading={isPending}
-            type="submit"
-            variant="solid"
-            className="w-full"
-          >
-            Calcular
-          </Button>
+          <div className="flex max-md:flex-col lg:justify-between w-full gap-2">
+            <Button
+              variant="outline"
+              className="lg:flex-1"
+              onClick={() => methods.reset()}
+            >
+              Limpar formulário
+            </Button>
+            <Button
+              loading={isPending}
+              type="submit"
+              variant="solid"
+              className="lg:flex-1"
+            >
+              Calcular
+            </Button>
+          </div>
         </form>
       </FormProvider>
       <pre>{JSON.stringify(calcResult, null, 2)}</pre>

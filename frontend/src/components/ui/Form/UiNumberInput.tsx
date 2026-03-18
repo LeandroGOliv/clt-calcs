@@ -35,7 +35,6 @@ export default function UiNumberInput({
             value={field.value !== undefined ? String(field.value) : ""}
             onValueChange={({ valueAsNumber }) => {
               field.onChange(isNaN(valueAsNumber) ? undefined : valueAsNumber);
-              console.log(valueAsNumber);
             }}
           >
             <NumberInput.Control />
