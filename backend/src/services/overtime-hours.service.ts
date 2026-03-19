@@ -3,9 +3,10 @@ import {
   OvertimeHoursOutput,
 } from "@/schemas/overtime-hours.schema";
 import { applyCLTDeductions } from "@/utils/deductions";
+import { formatNumberDecimals } from "@/utils/formatNumberDecimals";
 
 export function overtimeHoursCalc(
-  input: OvertimeHoursInput
+  input: OvertimeHoursInput,
 ): OvertimeHoursOutput {
   const { grossSalary, monthlyWorkHours, overtimeHours } = input;
 
@@ -27,8 +28,15 @@ export function overtimeHoursCalc(
   const { inss, irrf, net } = applyCLTDeductions(totalOvertimeHoursGrossPay);
 
   return {
-    overtimeHoursPay,
-    totalOvertimeHoursGrossPay,
+    overtimeHoursPay: {
+      daily: formatNumberDecimals(overtimeHoursPay.daily),
+      night: formatNumberDecimals(overtimeHoursPay.night),
+      holiday: formatNumberDecimals(overtimeHoursPay.holiday),
+      holidayAndNight: formatNumberDecimals(overtimeHoursPay.holidayAndNight),
+    },
+    totalOvertimeHoursGrossPay: formatNumberDecimals(
+      totalOvertimeHoursGrossPay,
+    ),
     inssDeduction: inss,
     irrfDeduction: irrf,
     totalOvertimeHoursNetPay: net,

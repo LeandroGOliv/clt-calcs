@@ -31,7 +31,7 @@ export function vacationCalc(input: VacationInputSchema): VacationOutputSchema {
     totalVacationGrossPay: formatNumberDecimals(totalVacationGrossPay),
     inssDeduction: inss,
     irrfDeduction: irrf,
-    totalVacationNetPay: net,
+    totalVacationNetPay: formatNumberDecimals(net),
     ...input,
   };
 }
