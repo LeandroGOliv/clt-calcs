@@ -73,7 +73,7 @@ export default function FormThirteenthSalary({ onSuccess }: Props) {
                 step={1}
               />
             </div>
-            <div className="max-sm:col-span-12 col-span-6">
+            <div className="max-sm:col-span-12 col-span-5">
               <UiNumberInput
                 name="numberOfInstallments"
                 label="Número de parcelas:"
@@ -83,7 +83,7 @@ export default function FormThirteenthSalary({ onSuccess }: Props) {
                 step={1}
               />
             </div>
-            <div className="max-sm:col-span-12 col-span-6">
+            <div className="max-sm:col-span-12 col-span-7">
               <UiCurrencyInput
                 name="averageOfBonus"
                 label="Valor médio de horas extras/comissões mensais:"

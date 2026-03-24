@@ -1,6 +1,7 @@
 import { Controller, useFormContext } from "react-hook-form";
 import { NumberInput } from "@chakra-ui/react";
 import UiFormField from "./UiFormField";
+import { useState } from "react";
 
 type UiNumberInputProps = {
   name: string;
@@ -20,7 +21,7 @@ export default function UiNumberInput({
   step,
 }: UiNumberInputProps) {
   const { control } = useFormContext();
-
+  const [value, setValue] = useState("0");
   return (
     <Controller
       name={name}
@@ -28,13 +29,15 @@ export default function UiNumberInput({
       render={({ field, fieldState }) => (
         <UiFormField label={label} id={id} error={fieldState.error?.message}>
           <NumberInput.Root
+            key={value}
             className="w-full"
             min={min}
             max={max}
             step={step}
-            value={field.value !== undefined ? String(field.value) : ""}
-            onValueChange={({ valueAsNumber }) => {
-              field.onChange(isNaN(valueAsNumber) ? undefined : valueAsNumber);
+            value={value}
+            onValueChange={(details) => {
+              setValue(details.value);
+              field.onChange(details.valueAsNumber);
             }}
           >
             <NumberInput.Control />
