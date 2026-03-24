@@ -1,5 +1,6 @@
 import {
   thirteenthSalarySchema,
+  type ThirteenthSalaryResponseSchema,
   type ThirteenthSalarySchema,
 } from "@/utils/schemas/thirteenth-salary";
 import { useForm, FormProvider } from "react-hook-form";
@@ -11,25 +12,27 @@ import UiNumberInput from "../ui/Form/UiNumberInput";
 import UiCurrencyInput from "../ui/Form/UiCurrencyInput";
 import { Button } from "@chakra-ui/react";
 
-export default function FormThirteenthSalary() {
+type Props = {
+  onSuccess: (data: ThirteenthSalaryResponseSchema) => void;
+};
+
+export default function FormThirteenthSalary({ onSuccess }: Props) {
   const methods = useForm<ThirteenthSalarySchema>({
     resolver: zodResolver(thirteenthSalarySchema),
     defaultValues: {
       grossSalary: 0,
       monthsWorked: 1,
       numberOfInstallments: 1,
+      averageOfBonus: 0,
     },
   });
 
-  const {
-    mutate,
-    data: calcResult,
-    isPending,
-  } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: async (form: ThirteenthSalarySchema) => {
       return services.thirteenthSalary.calculate(form);
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      onSuccess(data);
       toaster.create({
         description: "13º Salário calculado com sucesso!",
         duration: 4000,
@@ -53,14 +56,14 @@ export default function FormThirteenthSalary() {
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onFormSubmit)}>
           <div className="grid grid-cols-12 gap-3 mb-3">
-            <div className="col-span-12">
+            <div className="col-span-8">
               <UiCurrencyInput
                 name="grossSalary"
                 label="Salário bruto:"
                 id="grossSalary"
               />
             </div>
-            <div className="max-md:col-span-12 col-span-6">
+            <div className="max-md:col-span-12 col-span-4">
               <UiNumberInput
                 name="monthsWorked"
                 label="Meses trabalhados:"
@@ -73,11 +76,18 @@ export default function FormThirteenthSalary() {
             <div className="max-sm:col-span-12 col-span-6">
               <UiNumberInput
                 name="numberOfInstallments"
-                label="Número de parcelas"
+                label="Número de parcelas:"
                 id="numberOfInstallments"
                 min={1}
                 max={2}
                 step={1}
+              />
+            </div>
+            <div className="max-sm:col-span-12 col-span-6">
+              <UiCurrencyInput
+                name="averageOfBonus"
+                label="Valor médio de horas extras/comissões mensais:"
+                id="averageOfBonus"
               />
             </div>
           </div>
@@ -100,7 +110,6 @@ export default function FormThirteenthSalary() {
           </div>
         </form>
       </FormProvider>
-      <pre>{JSON.stringify(calcResult, null, 2)}</pre>
     </div>
   );
 }

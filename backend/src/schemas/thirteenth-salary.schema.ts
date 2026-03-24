@@ -8,6 +8,7 @@ export const thirteenthSalaryInputSchema = z.object({
 
   monthsWorked: z.number().int().min(1).max(12),
   numberOfInstallments: z.number().min(1).max(2),
+  averageOfBonus: z.number().nonnegative(),
 });
 
 export const thirteenthSalaryOutputSchema = thirteenthSalaryInputSchema.extend({
@@ -20,6 +21,8 @@ export const thirteenthSalaryOutputSchema = thirteenthSalaryInputSchema.extend({
   secondInstallmentNet: z.number().nonnegative(),
   secondInstallmentINSSDeduction: z.number().nonnegative(),
   secondInstallmentIRRFDeduction: z.number().nonnegative(),
+  thirteenthSalaryGrossTotalWithBonus: z.number().nonnegative(),
+  bonusProportional: z.number().nonnegative(),
 });
 
 export type ThirteenthSalaryInputSchema = z.infer<

@@ -4,6 +4,7 @@ export const thirteenthSalarySchema = z.object({
   grossSalary: z.number().min(1621, `Salário deve ser no mínimo R$ ${1621}`),
   monthsWorked: z.number().int().min(1).max(12),
   numberOfInstallments: z.number().min(1).max(2),
+  averageOfBonus: z.number(),
 });
 
 export type ThirteenthSalarySchema = z.infer<typeof thirteenthSalarySchema>;
@@ -18,6 +19,8 @@ export const thirteenthSalaryResponseSchema = thirteenthSalarySchema.extend({
   secondInstallmentNet: z.number().nonnegative(),
   secondInstallmentINSSDeduction: z.number().nonnegative(),
   secondInstallmentIRRFDeduction: z.number().nonnegative(),
+  thirteenthSalaryGrossTotalWithBonus: z.number().nonnegative(),
+  bonusProportional: z.number().nonnegative(),
 });
 
 export type ThirteenthSalaryResponseSchema = z.infer<

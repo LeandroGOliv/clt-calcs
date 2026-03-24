@@ -38,18 +38,23 @@ describe("overtimeHoursCalc", () => {
       expectedPay.holiday +
       expectedPay.holidayAndNight;
 
+    const expectedGrossWithSalary = expectedGross + input.grossSalary;
+
     const result = overtimeHoursCalc(input);
 
     expect(result.overtimeHoursPay.daily).toBeCloseTo(expectedPay.daily);
     expect(result.overtimeHoursPay.night).toBeCloseTo(expectedPay.night);
     expect(result.overtimeHoursPay.holiday).toBeCloseTo(expectedPay.holiday);
     expect(result.overtimeHoursPay.holidayAndNight).toBeCloseTo(
-      expectedPay.holidayAndNight
+      expectedPay.holidayAndNight,
     );
     expect(result.totalOvertimeHoursGrossPay).toBeCloseTo(expectedGross);
+    expect(result.totalOvertimeHoursGrossPayWithSalary).toBeCloseTo(
+      expectedGrossWithSalary,
+    );
   });
 
-  it("should apply CLT deductions on total gross pay", () => {
+  it("should apply CLT deductions on total gross pay with salary", () => {
     const input = {
       grossSalary: 5000,
       monthlyWorkHours: 220,
@@ -58,15 +63,30 @@ describe("overtimeHoursCalc", () => {
 
     overtimeHoursCalc(input);
 
-    const expectedGross = (5000 / 220) * 2 * 1.5;
+    const expectedOvertimePay = (5000 / 220) * 2 * 1.5;
+    const expectedGrossWithSalary = expectedOvertimePay + input.grossSalary;
 
     expect(jest.mocked(applyCLTDeductions)).toHaveBeenCalledTimes(1);
     expect(jest.mocked(applyCLTDeductions)).toHaveBeenCalledWith(
-      expect.closeTo(expectedGross, 5)
+      expect.closeTo(expectedGrossWithSalary, 5),
     );
   });
 
-  it("should return zero pay when all overtime hours are zero", () => {
+  it("should return correct deductions from applyCLTDeductions", () => {
+    const input = {
+      grossSalary: 5000,
+      monthlyWorkHours: 220,
+      overtimeHours: { daily: 2, night: 0, holiday: 0, holidayAndNight: 0 },
+    };
+
+    const result = overtimeHoursCalc(input);
+
+    expect(result.inssDeduction).toBe(100);
+    expect(result.irrfDeduction).toBe(50);
+    expect(result.totalOvertimeHoursNetPayWithSalary).toBe(850);
+  });
+
+  it("should return zero overtime pay when all overtime hours are zero", () => {
     const input = {
       grossSalary: 5000,
       monthlyWorkHours: 220,
@@ -82,6 +102,10 @@ describe("overtimeHoursCalc", () => {
       holiday: 0,
       holidayAndNight: 0,
     });
-    expect(jest.mocked(applyCLTDeductions)).toHaveBeenCalledWith(0);
+    // Sem horas extras, applyCLTDeductions ainda recebe o salário base
+    expect(jest.mocked(applyCLTDeductions)).toHaveBeenCalledWith(
+      input.grossSalary,
+    );
+    expect(result.totalOvertimeHoursGrossPayWithSalary).toBe(input.grossSalary);
   });
 });

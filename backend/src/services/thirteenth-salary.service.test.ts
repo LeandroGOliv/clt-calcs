@@ -11,15 +11,16 @@ describe("thirteenthSalaryCalc", () => {
       .mockReturnValue({ inss: 100, irrf: 50, net: 850 });
   });
 
-  it("should calculate thirteenth salaray with one installment pay correctly", () => {
+  it("should calculate thirteenth salary with one installment pay correctly", () => {
     const input = {
       grossSalary: 5000,
       monthsWorked: 12,
       numberOfInstallments: 1,
+      averageOfBonus: 0,
     };
 
-    const expectedSalaryGrossTotal = (5000 / 12) * 12;
-    const expectedFirstInstallmentGross = expectedSalaryGrossTotal;
+    const expectedSalaryGrossTotal = 5000 * (12 / 12); // sem bônus
+    const expectedGrossTotalWithBonus = expectedSalaryGrossTotal + 0;
 
     const result = thirteenthSalaryCalc(input);
 
@@ -27,21 +28,23 @@ describe("thirteenthSalaryCalc", () => {
       expectedSalaryGrossTotal,
     );
     expect(result.firstInstallmentGross).toBeCloseTo(
-      expectedFirstInstallmentGross,
+      expectedGrossTotalWithBonus,
     );
     expect(result.secondInstallmentGross).toEqual(0);
   });
 
-  it("should calculate thirteenth salaray with two installments pay correctly", () => {
+  it("should calculate thirteenth salary with two installments pay correctly", () => {
     const input = {
       grossSalary: 5000,
       monthsWorked: 12,
       numberOfInstallments: 2,
+      averageOfBonus: 0,
     };
 
-    const expectedSalaryGrossTotal = (5000 / 12) * 12;
-    const expectedFirstInstallmentGross = expectedSalaryGrossTotal / 2;
-    const expectedSecondInstallmentGross = expectedSalaryGrossTotal / 2;
+    const expectedSalaryGrossTotal = 5000 * (12 / 12);
+    const expectedGrossTotalWithBonus = expectedSalaryGrossTotal + 0;
+    const expectedFirstInstallmentGross = expectedGrossTotalWithBonus / 2;
+    const expectedSecondInstallmentGross = expectedGrossTotalWithBonus / 2;
 
     const result = thirteenthSalaryCalc(input);
 
@@ -51,7 +54,7 @@ describe("thirteenthSalaryCalc", () => {
     expect(result.firstInstallmentGross).toBeCloseTo(
       expectedFirstInstallmentGross,
     );
-    expect(result.secondInstallmentGross).toEqual(
+    expect(result.secondInstallmentGross).toBeCloseTo(
       expectedSecondInstallmentGross,
     );
   });
@@ -61,12 +64,40 @@ describe("thirteenthSalaryCalc", () => {
       grossSalary: 6000,
       monthsWorked: 6,
       numberOfInstallments: 1,
+      averageOfBonus: 0,
     };
+
     const result = thirteenthSalaryCalc(input);
 
     expect(result.thirteenthSalaryGrossTotal).toBeCloseTo(3000);
+    // applyCLTDeductions recebe thirteenthSalaryGrossTotalWithBonus (3000 + 0)
     expect(jest.mocked(applyCLTDeductions)).toHaveBeenCalledWith(
       expect.closeTo(3000, 5),
+    );
+  });
+
+  it("should calculate bonus proportional and pass total with bonus to deductions", () => {
+    const input = {
+      grossSalary: 6000,
+      monthsWorked: 6,
+      numberOfInstallments: 1,
+      averageOfBonus: 1200,
+    };
+
+    const expectedGrossTotal = 6000 * (6 / 12); // 3000
+    const expectedBonusProportional = 1200 * (6 / 12); // 600
+    const expectedGrossTotalWithBonus =
+      expectedGrossTotal + expectedBonusProportional; // 3600
+
+    const result = thirteenthSalaryCalc(input);
+
+    expect(result.thirteenthSalaryGrossTotal).toBeCloseTo(expectedGrossTotal);
+    expect(result.bonusProportional).toBeCloseTo(expectedBonusProportional);
+    expect(result.thirteenthSalaryGrossTotalWithBonus).toBeCloseTo(
+      expectedGrossTotalWithBonus,
+    );
+    expect(jest.mocked(applyCLTDeductions)).toHaveBeenCalledWith(
+      expect.closeTo(expectedGrossTotalWithBonus, 5),
     );
   });
 
@@ -75,7 +106,9 @@ describe("thirteenthSalaryCalc", () => {
       grossSalary: 5000,
       monthsWorked: 12,
       numberOfInstallments: 1,
+      averageOfBonus: 0,
     };
+
     const result = thirteenthSalaryCalc(input);
 
     expect(result.firstInstallmentINSSDeduction).toBe(100);
@@ -92,7 +125,9 @@ describe("thirteenthSalaryCalc", () => {
       grossSalary: 5000,
       monthsWorked: 12,
       numberOfInstallments: 2,
+      averageOfBonus: 0,
     };
+
     const result = thirteenthSalaryCalc(input);
 
     expect(result.firstInstallmentNet).toBeCloseTo(

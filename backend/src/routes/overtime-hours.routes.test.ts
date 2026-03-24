@@ -30,7 +30,10 @@ describe("POST /overtime-hours", () => {
     expect(response.statusCode).toBe(200);
     expect(body.overtimeHoursPay.holiday).toBeGreaterThan(0);
     expect(body.totalOvertimeHoursGrossPay).toBeGreaterThan(0);
-    expect(body.totalOvertimeHoursNetPay).toBeGreaterThan(0);
+    expect(body.totalOvertimeHoursGrossPayWithSalary).toBeGreaterThan(0);
+    expect(body.totalOvertimeHoursNetPayWithSalary).toBeGreaterThan(0);
+    expect(body.inssDeduction).toBeDefined();
+    expect(body.irrfDeduction).toBeDefined();
   });
 
   it("should return 400 for invalid input", async () => {

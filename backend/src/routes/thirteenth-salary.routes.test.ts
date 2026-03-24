@@ -18,6 +18,7 @@ describe("POST /thirteenth-salary", () => {
         grossSalary: 2700,
         monthsWorked: 12,
         numberOfInstallments: 2,
+        averageOfBonus: 0,
       },
     });
     const body = response.json<ThirteenthSalaryOutputSchema>();
@@ -31,6 +32,8 @@ describe("POST /thirteenth-salary", () => {
     expect(body.secondInstallmentIRRFDeduction).toBeDefined();
     expect(body.firstInstallmentINSSDeduction).toBeDefined();
     expect(body.firstInstallmentIRRFDeduction).toBeDefined();
+    expect(body.bonusProportional).toBeDefined();
+    expect(body.thirteenthSalaryGrossTotalWithBonus).toBeDefined();
   });
 
   it("should return 400 for invalid input", async () => {
@@ -41,6 +44,7 @@ describe("POST /thirteenth-salary", () => {
         grossSalary: -100,
         monthsWorked: 12,
         numberOfInstallments: 2,
+        averageOfBonus: 0,
       },
     });
     expect(response.statusCode).toBe(400);

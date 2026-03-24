@@ -25,7 +25,16 @@ export function overtimeHoursCalc(
     overtimeHoursPay.holiday +
     overtimeHoursPay.holidayAndNight;
 
-  const { inss, irrf, net } = applyCLTDeductions(totalOvertimeHoursGrossPay);
+  const totalOvertimeHoursGrossPayWithSalary =
+    overtimeHoursPay.daily +
+    overtimeHoursPay.night +
+    overtimeHoursPay.holiday +
+    overtimeHoursPay.holidayAndNight +
+    grossSalary;
+
+  const { inss, irrf, net } = applyCLTDeductions(
+    totalOvertimeHoursGrossPayWithSalary,
+  );
 
   return {
     overtimeHoursPay: {
@@ -37,9 +46,12 @@ export function overtimeHoursCalc(
     totalOvertimeHoursGrossPay: formatNumberDecimals(
       totalOvertimeHoursGrossPay,
     ),
+    totalOvertimeHoursGrossPayWithSalary: formatNumberDecimals(
+      totalOvertimeHoursGrossPayWithSalary,
+    ),
+    totalOvertimeHoursNetPayWithSalary: formatNumberDecimals(net),
     inssDeduction: inss,
     irrfDeduction: irrf,
-    totalOvertimeHoursNetPay: net,
     ...input,
   };
 }
