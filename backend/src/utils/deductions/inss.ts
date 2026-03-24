@@ -22,13 +22,15 @@ export default function calcINSS(gross: number) {
   let total = 0;
 
   for (const bracket of INSS_TABLE) {
-    const taxable = Math.min(bracket.limit - previousLimit, remaining);
+    if (remaining <= 0) break;
 
-    if (remaining === 0) return 0;
+    const range = bracket.limit - previousLimit;
+    const taxable = Math.min(range, remaining);
+
+    total += taxable * bracket.rate;
 
     remaining -= taxable;
     previousLimit = bracket.limit;
-    total += total * bracket.rate;
   }
 
   return Number(total.toFixed(2));
