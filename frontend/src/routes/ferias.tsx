@@ -18,7 +18,7 @@ function RouteComponent() {
         <UiBackButton />
       </div>
 
-      <div className="lg:mt-24 flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center">
         <h1 className="max-sm:text-xl text-3xl font-bold mb-2 lg:mb-6">
           Calculadora de férias
         </h1>

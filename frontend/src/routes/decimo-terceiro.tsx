@@ -11,7 +11,7 @@ export const Route = createFileRoute("/decimo-terceiro")({
 
 function RouteComponent() {
   const [result, setResult] = useState<ThirteenthSalaryResponseSchema | null>(
-    null,
+    null
   );
 
   return (
@@ -20,7 +20,7 @@ function RouteComponent() {
         <UiBackButton />
       </div>
 
-      <div className="lg:mt-24 flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center">
         <h1 className="max-sm:text-xl text-3xl font-bold mb-2 lg:mb-6">
           Calculadora de décimo terceiro salário
         </h1>

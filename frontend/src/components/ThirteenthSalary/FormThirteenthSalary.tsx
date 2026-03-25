@@ -91,19 +91,12 @@ export default function FormThirteenthSalary({ onSuccess }: Props) {
               />
             </div>
           </div>
-          <div className="flex max-md:flex-col lg:justify-between w-full gap-2">
-            <Button
-              variant="outline"
-              className="lg:flex-1"
-              onClick={() => methods.reset()}
-            >
-              Limpar formulário
-            </Button>
+          <div className="flex w-full">
             <Button
               loading={isPending}
               type="submit"
               variant="solid"
-              className="lg:flex-1"
+              className="w-full"
             >
               Calcular
             </Button>

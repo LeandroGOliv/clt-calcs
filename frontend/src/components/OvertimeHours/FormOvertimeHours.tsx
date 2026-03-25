@@ -72,6 +72,7 @@ export default function FormOvertimeHours({ onSuccess }: Props) {
                 name="monthlyWorkHours"
                 label="Carga horária mensal:"
                 id="monthlyWorkHours"
+                min={0}
               />
             </div>
             <div className="max-md:col-span-12 col-span-4">
@@ -79,6 +80,7 @@ export default function FormOvertimeHours({ onSuccess }: Props) {
                 name="overtimeHours.daily"
                 label="Horas extras normais:"
                 id="daily"
+                min={0}
               />
             </div>
             <div className="max-md:col-span-12 col-span-5">
@@ -86,6 +88,7 @@ export default function FormOvertimeHours({ onSuccess }: Props) {
                 name="overtimeHours.holiday"
                 label="Horas extras domingos e feriados:"
                 id="holiday"
+                min={0}
               />
             </div>
             <div className="max-md:col-span-12 col-span-5">
@@ -93,6 +96,7 @@ export default function FormOvertimeHours({ onSuccess }: Props) {
                 name="overtimeHours.night"
                 label="Horas extras noturnas:"
                 id="night"
+                min={0}
               />
             </div>
             <div className="max-md:col-span-12 col-span-5">
@@ -100,22 +104,16 @@ export default function FormOvertimeHours({ onSuccess }: Props) {
                 name="overtimeHours.holidayAndNight"
                 label="Horas extras noturnas em domingos e feriados:"
                 id="holidayAndNight"
+                min={0}
               />
             </div>
           </div>
-          <div className="flex max-md:flex-col lg:justify-between w-full gap-2">
-            <Button
-              variant="outline"
-              className="lg:flex-1"
-              onClick={() => methods.reset()}
-            >
-              Limpar formulário
-            </Button>
+          <div className="flex w-full">
             <Button
               loading={isPending}
               type="submit"
               variant="solid"
-              className="lg:flex-1"
+              className="w-full"
             >
               Calcular
             </Button>
